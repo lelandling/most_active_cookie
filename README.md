@@ -7,3 +7,6 @@ Run with
 
 python most_active_cookie.py cookielog.csv -d 2018-12-08
 
+Run test with 
+
+python most_active_cookie_tests.py
