@@ -25,6 +25,8 @@ class activecookie:
                 self.storedcookielog.append(row);
               
     def findmaxcookie(self, date):
+        
+        
         cookiedict = {}
         maxcookie ={}
         for row in self.storedcookielog:
@@ -36,8 +38,10 @@ class activecookie:
                     cookiedict[row[0]] = cookiedict[row[0]] +1
 
         maxcookie = [key for key, value in cookiedict.items() if value == max(cookiedict.values())]
-        for cookie in maxcookie:
-            print(cookie)
+        
+        
+        return maxcookie
+
     
     
 if __name__ == '__main__':
@@ -48,4 +52,9 @@ if __name__ == '__main__':
     
     cookieprocessor = activecookie()
     cookieprocessor.processcookies(args["file_path"])
-    cookieprocessor.findmaxcookie(args["date"])
+    cookieset =  cookieprocessor.findmaxcookie(args["date"])
+    
+    for cookie in cookieset:
+        print(cookie)
+        
+    
