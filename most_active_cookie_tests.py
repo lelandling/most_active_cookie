@@ -77,9 +77,20 @@ class tester(unittest.TestCase):
         calculatedcookies = cookieprocessor.findmaxcookie(saveddate[0:10])
         
         
-        
-        print(solutionset == calculatedcookies)
-        
+        if(solutionset == calculatedcookies):
+            print("Test passed, test dataset:")
+            print(dataset)
+            print("solution set:")
+            print(solutionset)
+            print("calculated cookieset:")
+            print(calculatedcookies)
+        else:
+            print("Test failed, test dataset:")
+            print(dataset)
+            print("solution set:")
+            print(solutionset)
+            print("calculated cookieset:")
+            print(calculatedcookies)
 
 if __name__ == '__main__':
     thing = tester()
