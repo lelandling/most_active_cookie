@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb 12 13:22:12 2022
+
+@author: lelandling
+"""
+
+
 import argparse
 import sys
 import csv
@@ -5,27 +14,38 @@ import csv
 
 #def main():
     #script = sys.argv[0]
-cookiedict = {}
+class activecookie:
+    def __init__(self):
+        self.storedcookielog = []
 
-parser = argparse.ArgumentParser(description = "most active cookie of date given")
-parser.add_argument("file_path")
-parser.add_argument("--date", "-d")
-args = vars(parser.parse_args(sys.argv[1:]))
+    def processcookies(self, path):
+        with open(path, 'r') as csvfile:
+            cookielog = csv.reader(csvfile)
+            for row in cookielog:
+                self.storedcookielog.append(row);
+              
+    def findmaxcookie(self, date):
+        cookiedict = {}
+        maxcookie ={}
+        for row in self.storedcookielog:
+          
+            if(row[1][0:10] == date): #usees string manipulation to look at the first 
+                if(row[0] not in cookiedict):
+                    cookiedict[row[0]] = 1
+                else:
+                    cookiedict[row[0]] = cookiedict[row[0]] +1
 
-
-
-with open(args["file_path"], 'r') as csvfile:
-    cookielog = csv.reader(csvfile)
-    for row in cookielog:
-        if(row[1][0:10] == args["date"]): #usees string manipulation to look at the first 
-            if(row[0] not in cookiedict):
-                cookiedict[row[0]] = 1
-            else:
-                cookiedict[row[0]] = cookiedict[row[0]] +1
-        #if(row[0] not in cookiedict):
-        #    cookiedict[row[0]] = [row[1]]
-        #else:
-        #    cookiedict[row[0]].append(row[1])
-maxcookie = [key for key, value in cookiedict.items() if value == max(cookiedict.values())]
-for cookie in maxcookie:
-    print(cookie)
+        maxcookie = [key for key, value in cookiedict.items() if value == max(cookiedict.values())]
+        for cookie in maxcookie:
+            print(cookie)
+    
+    
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description = "most active cookie of date given")
+    parser.add_argument("file_path")
+    parser.add_argument("--date", "-d")
+    args = vars(parser.parse_args(sys.argv[1:]))
+    
+    cookieprocessor = activecookie()
+    cookieprocessor.processcookies(args["file_path"])
+    cookieprocessor.findmaxcookie(args["date"])
